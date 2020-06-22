@@ -1,19 +1,24 @@
-import React from 'react';
+import React, {Component} from 'react';
 import classes from './Modal.css';
-import Aux from '../../../hoc/Auxiliary';
+import Aux from '../../../hoc/Auxiliary/Auxiliary';
 import Backdrop from '../Backdrop/Backdrop';
 
-const modal = (props) =>{
+class Modal extends Component {
+    shouldComponentUpdate(nextProps, nextState){
+        return nextProps.order !== this.props.order;
+    }
+    render(){
     return (
         <Aux>
-            <Backdrop show={props.order} clicked={props.clicked}></Backdrop>
+            <Backdrop show={this.props.order} clicked={this.props.clicked}></Backdrop>
         <div className={classes.Modal} style={{
-            transform:props.order? 'translateY(0)':'translateY(-100vh)'
+            transform:this.props.order? 'translateY(0)':'translateY(-100vh)'
         }}>
-        {props.children}
+        {this.props.children}
     </div>
     </Aux>
-    );
+    )
+    }
 }
 
-export default modal;
+export default Modal;
